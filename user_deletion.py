@@ -99,23 +99,21 @@ def remove_user(con, local_users_df, owner_id=user_id_to_remove):
             if response_b.status_code == 204:
                 print(f"User with email {email_to_remove} removed successfully.")
             else:
-                # print(f"{email_to_remove} user has content. Run it separately to change the ownership")
-                try:
-                    for inx, row in enumerate(owner_swap_df.itertuples()):
-                        response_i = change_content_owner(conn, row.content_type, row.id, new_owner_id)
-                        print(response_i.json())
-                        if response_i.status_code == 200:
-                            print(f"Content ownership changed for content id {row.id}")
-                        else:
-                            print(f"Failed to change ownership for content id {row.id}")
-                except Exception as e:
-                    print(f"An error occurred: {str(e)}")
+                print(f"{email_to_remove} user has content. Run it separately to change the ownership")      
     except Exception as ex:
         print(f"An error occurred: {str(ex)}")
 
 
 def main():
     try:
+        for inx, row in enumerate(owner_swap_df.itertuples()):
+            response_i = change_content_owner(conn, row.content_type, row.id, new_owner_id)
+            print(response_i.json())
+            if response_i.status_code == 200:
+                print(f"Content ownership changed for content id {row.id}")
+            else:
+                print(f"Failed to change ownership for content id {row.id}")
+
         remove_user(conn, users_df, owner_id=user_id_to_remove)
     except Exception as e:
         print(f"An error occurred: {str(e)}")
