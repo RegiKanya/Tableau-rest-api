@@ -16,3 +16,8 @@ Logic:
 4. check that there is a content on the user being removed
 5. if it is then change the ownership
 6. delete all the users who are listed in user_removed.csv
+
+
+Challenges for the Tableau REST API:
+- cannot change thr project ownership
+- cannot change Privat collections ownership
